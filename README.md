@@ -5,7 +5,7 @@
 - Projekat se radi na kursu "napredni algoritmi i strukture podataka" na 2. godini fakulteta smera softverskog inzenjerstva i informacionih tehnologija.
 
 - Opis projekta:
-    - Napravljena konzolna aplikacija koja omogucava korisniku pisanje, citanje i manipulisanje nad unetim podatacima u njegovom sistemu.
+    - Napravljena konzolna aplikacija koja omogucava korisniku pisanje, citanje i manipulisanje nad unetim podacima u njegovom sistemu.
     - Neke od opcija su ...
 
 ...
