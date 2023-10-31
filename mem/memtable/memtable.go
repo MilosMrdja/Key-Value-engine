@@ -1,13 +1,13 @@
 package memtable
 
 type Memtable struct {
-	data             map[string][]byte
+	data             map[string]*DataType
 	capacity, length int
 }
 
 func CreateMemtable(cap int) *Memtable {
 	return &Memtable{
-		data:     make(map[string][]byte),
+		data:     make(map[string]*DataType),
 		capacity: cap,
 		length:   0,
 	}
@@ -19,7 +19,7 @@ func (mem *Memtable) SendToSSTable() bool {
 
 	//.......
 	//.......
-	mem.data = make(map[string][]byte)
+	mem.data = make(map[string]*DataType)
 	mem.length = 0
 	return true
 }
@@ -27,14 +27,15 @@ func (mem *Memtable) SendToSSTable() bool {
 func (mem *Memtable) AddElement(key string, data []byte) bool {
 	//ukoliko ima mesta u memtable, samo se upisuje podatak
 	if mem.length < mem.capacity {
-		mem.data[key] = data
+		e := CreateDataType(data)
+		mem.data[key] = e
 		mem.length++
 		return true
 
 		//neophodno je isprazniti memtable
 	} else if mem.length == mem.capacity {
 		if mem.SendToSSTable() {
-			mem.data[key] = data
+			mem.data[key] = CreateDataType(data)
 			mem.length++
 			return true
 		}
@@ -45,17 +46,16 @@ func (mem *Memtable) AddElement(key string, data []byte) bool {
 
 func (mem *Memtable) GetElement(key string) (bool, []byte) {
 	elem, err := mem.data[key]
-	if !err {
+	if !err || elem.IsDeleted() {
 		return false, nil
 	}
-	return true, elem
+	return true, elem.data
 }
 
 func (mem *Memtable) DeleteElement(key string) bool {
-	exist, _ := mem.GetElement(key)
-
-	if exist {
-		delete(mem.data, key)
+	elem, found := mem.data[key]
+	if found {
+		elem.DeleteDataType()
 		return true
 	}
 	return false
