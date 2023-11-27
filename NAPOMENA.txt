@@ -1,1 +1,16 @@
 #NAPOMENA
+
+1. DODAVANJE GRANE 
+	- obavezno preci u granu pod kojom zelimo da je dodamo
+	- git branch [ime grane] - dodajemo lokalno
+	- git checkout [ime dodate grane]
+	- git push origin [ime grane] - dodajemo na gitu
+	- git add [fajlovi koje hocemo], git commit -m "...", git push origin [ime dodate grane]
+2. BRISANJE GRANE
+	- obavezno preci u nad granu da mozemo obrisatu ovu sto je pod njom
+	- git brnach -d [ime grane koje zelimo da obrisemo]   - brisemo lokalno
+	- git push origin -d [ime grane koje smo vec lokalno obrisali] - brisemo na gitu
+
+3. USKLADJIVANJE GRANA 
+	- git fetch --prune - uskladice sve grane, nisam siguran sa koje grane treba ovo pozvati, meni je radilo sa bilo koje
+
